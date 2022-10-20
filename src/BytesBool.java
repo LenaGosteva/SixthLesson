@@ -21,27 +21,38 @@ public class BytesBool {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
-        int n = in.nextInt(), size = 0;
-        if (n % 8 != 0) {
+        int size = in.nextInt(), n = size, k;
+        if (size % 8 != 0) {
             size += 8 - size % 8;
 
         }
-        byte[] bool = new byte[size/8];
-        for (int i = 0; i < bool.length; ++i) {
+        k = size/8;
+        byte[] bool = new byte[k];
+        for (int i = 0; i < k; ++i) {
             boolean x;
             for (int j = 0; j < 8; j++) {
                 x = in.nextBoolean();
                 bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
             }
         }
-        for (byte b : bool) {
+        for (int i = 0; i < k; ++i) {
+            if (i == k - 1){
+                for (int j = 0; j < n%8; j++) {
+                    if ((bool[i] & (1 << j)) != 0) {
+                        System.out.print(true + " ");
+                    } else {
+                        System.out.print(false + " ");
+                    }
+                }
+            }
+            else{
             for (int j = 0; j < 8; j++) {
-                if ((b & (1 << j)) != 0) {
+                if ((bool[i] & (1 << j)) != 0) {
                     System.out.print(true + " ");
                 } else {
                     System.out.print(false + " ");
                 }
             }
-        }
+        }}
     }
 }
