@@ -17,6 +17,8 @@ import java.util.Scanner;
 Далее n true или false - элементы массива
 
 Выходные данные вывести полученный массив*/
+import java.util.Scanner;
+
 public class BytesBool {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -24,44 +26,17 @@ public class BytesBool {
         int size = in.nextInt(), n = size, k;
         if (size % 8 != 0) {
             size += 8 - size % 8;
-
         }
-        k = size/8;
+
+        k = size / 8;
         byte[] bool = new byte[k];
-        for (int i = 0; i < k; ++i) {
-            boolean x;
-            if (i<k-1){
-                for (int j = 0; j < 8; j++) {
-                    x = in.nextBoolean();
-                    bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
-                }
-            }
-            else{
-                for (int j = 0; j < n%8; j++) {
-                    x = in.nextBoolean();
-                    bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
-                }
-            }
-
+        for (int i = 0; i < n; i++) {
+            boolean x = in.nextBoolean();
+            bool[i / 8] |= ((x ? 1 : 0) << (i % 8));
         }
-        for (int i = 0; i < k; ++i) {
-            if (i == k - 1){
-                for (int j = 0; j < n%8; j++) {
-                    if ((bool[i] & (1 << j)) != 0) {
-                        System.out.print(true + " ");
-                    } else {
-                        System.out.print(false + " ");
-                    }
-                }
-            }
-            else{
-            for (int j = 0; j < 8; j++) {
-                if ((bool[i] & (1 << j)) != 0) {
-                    System.out.print(true + " ");
-                } else {
-                    System.out.print(false + " ");
-                }
-            }
-        }}
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(((bool[i / 8] & (1 << (i % 8))) != 0) + " ");
+        }
     }
 }
