@@ -30,10 +30,19 @@ public class BytesBool {
         byte[] bool = new byte[k];
         for (int i = 0; i < k; ++i) {
             boolean x;
-            for (int j = 0; j < 8; j++) {
-                x = in.nextBoolean();
-                bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
+            if (i<k-1){
+                for (int j = 0; j < 8; j++) {
+                    x = in.nextBoolean();
+                    bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
+                }
             }
+            else{
+                for (int j = 0; j < n%8; j++) {
+                    x = in.nextBoolean();
+                    bool[i] = (byte)(bool[i] | ((x ? 1 : 0) << j));
+                }
+            }
+
         }
         for (int i = 0; i < k; ++i) {
             if (i == k - 1){
